@@ -28,9 +28,7 @@ func main() {
 ### Using color
 
 ```go
-import "github.com/d3code/clog"
-
-func main() {
-    clog.Info("Hello {{ World | blue }}!")
-}
+clog.Info("Hello {{ World | blue }}!")
 ```
+
+![](docs/img.png)
