@@ -1,4 +1,6 @@
-# clog: Console Logging Sugar
+# clog: Go Console Logging Sugar
+
+![example workflow](https://github.com/d3code/clog/actions/workflows/run-tests.yaml/badge.svg)
 
 ## Introduction
 

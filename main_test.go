@@ -11,7 +11,9 @@ func TestInfo(t *testing.T) {
         args args
     }{
         // TODO: Add test cases.
-        {name: "Standard", args: struct{ input []string }{input: []string{"Hello", "{{ World | blue}}!"}}},
+        {name: "Standard", args: struct{ input []string }{input: []string{"Hello World!"}}},
+        {name: "Join", args: struct{ input []string }{input: []string{"Hello", "World!"}}},
+        {name: "Color", args: struct{ input []string }{input: []string{"Hello", "{{ World | blue}}!"}}},
     }
     for _, tt := range tests {
         t.Run(tt.name, func(t *testing.T) {
