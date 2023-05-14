@@ -1,6 +1,9 @@
 package clog
 
-import "testing"
+import (
+    "fmt"
+    "testing"
+)
 
 func TestInfo(t *testing.T) {
     type args struct {
@@ -13,11 +16,13 @@ func TestInfo(t *testing.T) {
         // TODO: Add test cases.
         {name: "Standard", args: struct{ input []string }{input: []string{"Hello World!"}}},
         {name: "Join", args: struct{ input []string }{input: []string{"Hello", "World!"}}},
-        {name: "Color", args: struct{ input []string }{input: []string{"Hello", "{{ World | blue}}!"}}},
+        {name: "Color", args: struct{ input []string }{input: []string{"Hello {{ World | blue}}!"}}},
     }
     for _, tt := range tests {
         t.Run(tt.name, func(t *testing.T) {
+            fmt.Println()
             Info(tt.args.input...)
+            fmt.Println()
         })
     }
 }
