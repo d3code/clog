@@ -12,7 +12,12 @@ func Debug(input ...string) {
     if !ShowDebugLogs {
         return
     }
+
     message := strings.Join(input, " ")
+    if len(message) == 0 {
+        return
+    }
+
     message = color.RemoveColor(message)
     message = fmt.Sprintf("{{ %s | grey }}", message)
 
@@ -21,6 +26,10 @@ func Debug(input ...string) {
 
 func Warn(input ...string) {
     message := strings.Join(input, " ")
+    if len(message) == 0 {
+        message = "Unknown warning"
+    }
+
     message = color.RemoveColor(message)
     message = fmt.Sprintf("{{ WARNING: %s | yellow }}", message)
 
@@ -29,6 +38,10 @@ func Warn(input ...string) {
 
 func Error(input ...string) {
     message := strings.Join(input, " ")
+    if len(message) == 0 {
+        message = "Unknown error"
+    }
+
     message = color.RemoveColor(message)
     message = fmt.Sprintf("{{ ERROR: %s | red }}", message)
 
@@ -37,22 +50,31 @@ func Error(input ...string) {
 
 func Info(input ...string) {
     message := strings.Join(input, " ")
-    message = color.ColorMatchTemplate(message)
+    if len(message) == 0 {
+        return
+    }
 
+    message = color.ColorMatchTemplate(message)
     fmt.Println(message)
 }
 
 func InfoF(format string, input ...any) {
     message := fmt.Sprintf(format, input...)
-    message = color.ColorMatchTemplate(message)
+    if len(message) == 0 {
+        return
+    }
 
+    message = color.ColorMatchTemplate(message)
     fmt.Println(message)
 }
 
 func InfoL(inputLines ...string) {
     message := strings.Join(inputLines, "\n")
-    message = color.ColorMatchTemplate(message)
+    if len(message) == 0 {
+        return
+    }
 
+    message = color.ColorMatchTemplate(message)
     fmt.Println(message)
 }
 
