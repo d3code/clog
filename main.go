@@ -6,10 +6,15 @@ import (
     "strings"
 )
 
-func Debug(title string, input ...string) {
+var ShowDebugLogs = false
+
+func Debug(input ...string) {
+    if !ShowDebugLogs {
+        return
+    }
     message := strings.Join(input, " ")
     message = color.RemoveColor(message)
-    message = fmt.Sprintf("{{ [ %s ] %s | grey }}", title, message)
+    message = fmt.Sprintf("{{ %s | grey }}", message)
 
     Info(message)
 }
@@ -17,7 +22,7 @@ func Debug(title string, input ...string) {
 func Warn(input ...string) {
     message := strings.Join(input, " ")
     message = color.RemoveColor(message)
-    message = fmt.Sprintf("{{ [ WARNING ] | yellow }} %s", message)
+    message = fmt.Sprintf("{{ WARNING: %s | yellow }}", message)
 
     Info(message)
 }
@@ -25,7 +30,7 @@ func Warn(input ...string) {
 func Error(input ...string) {
     message := strings.Join(input, " ")
     message = color.RemoveColor(message)
-    message = fmt.Sprintf("{{ [ ERROR ] | red }} %s", message)
+    message = fmt.Sprintf("{{ ERROR: %s | red }}", message)
 
     Info(message)
 }
@@ -57,6 +62,7 @@ func Underline(message ...string) {
 
     underline := color.RemoveColor(title)
     underline = strings.Repeat("-", len(underline))
+    underline = color.ColorString(underline, "grey")
 
     fmt.Println()
     InfoL(title, underline)
@@ -64,11 +70,5 @@ func Underline(message ...string) {
 
 func UnderlineF(format string, input ...any) {
     title := fmt.Sprintf(format, input...)
-    title = color.ColorMatchTemplate(title)
-
-    underline := color.RemoveColor(title)
-    underline = strings.Repeat("-", len(underline))
-
-    fmt.Println()
-    InfoL(title, underline)
+    Underline(title)
 }
