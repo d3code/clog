@@ -19,7 +19,7 @@ func Debug(input ...string) {
     }
 
     message = color.RemoveColor(message)
-    message = fmt.Sprintf("{{ %s | grey }}", message)
+    message = color.ColorString(message, "grey")
 
     Info(message)
 }
@@ -31,7 +31,7 @@ func Warn(input ...string) {
     }
 
     message = color.RemoveColor(message)
-    message = fmt.Sprintf("{{ WARNING: %s | yellow }}", message)
+    message = color.ColorString("WARNING: "+message, "yellow")
 
     Info(message)
 }
@@ -43,7 +43,7 @@ func Error(input ...string) {
     }
 
     message = color.RemoveColor(message)
-    message = fmt.Sprintf("{{ ERROR: %s | red }}", message)
+    message = color.ColorString("ERROR: "+message, "red")
 
     Info(message)
 }
@@ -58,6 +58,7 @@ func Info(input ...string) {
     fmt.Println(message)
 }
 
+// InfoF uses fmt.Sprintf to log a templated message.
 func InfoF(format string, input ...any) {
     message := fmt.Sprintf(format, input...)
     if len(message) == 0 {
@@ -78,8 +79,10 @@ func InfoL(inputLines ...string) {
     fmt.Println(message)
 }
 
-func Underline(message ...string) {
-    title := strings.Join(message, " ")
+func Underline(title string, message string) {
+    if message != "" {
+        title = fmt.Sprintf("{{ %s | bold }} {{ %s | blue }}", title, message)
+    }
     title = color.ColorMatchTemplate(title)
 
     underline := color.RemoveColor(title)
@@ -92,5 +95,5 @@ func Underline(message ...string) {
 
 func UnderlineF(format string, input ...any) {
     title := fmt.Sprintf(format, input...)
-    Underline(title)
+    Underline(title, "")
 }
