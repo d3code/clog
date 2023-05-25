@@ -31,7 +31,7 @@ func Warn(input ...string) {
     }
 
     message = color.RemoveColor(message)
-    message = color.ColorString("WARNING: "+message, "yellow")
+    message = color.ColorString("[ warning ] "+message, "yellow")
 
     Info(message)
 }
@@ -43,7 +43,7 @@ func Error(input ...string) {
     }
 
     message = color.RemoveColor(message)
-    message = color.ColorString("ERROR: "+message, "red")
+    message = color.ColorString("[ error ] "+message, "red")
 
     Info(message)
 }
