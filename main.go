@@ -2,8 +2,9 @@ package clog
 
 import (
     "fmt"
-    "github.com/d3code/clog/color"
     "strings"
+
+    "github.com/d3code/clog/color"
 )
 
 var ShowDebugLogs = false
@@ -19,7 +20,7 @@ func Debug(input ...string) {
     }
 
     message = color.RemoveColor(message)
-    message = color.ColorString(message, "grey")
+    message = color.String(message, "grey")
 
     Info(message)
 }
@@ -31,7 +32,7 @@ func Warn(input ...string) {
     }
 
     message = color.RemoveColor(message)
-    message = color.ColorString("[ warning ] "+message, "yellow")
+    message = color.String("[ warning ] "+message, "yellow")
 
     Info(message)
 }
@@ -43,7 +44,7 @@ func Error(input ...string) {
     }
 
     message = color.RemoveColor(message)
-    message = color.ColorString("[ error ] "+message, "red")
+    message = color.String("[ error ] "+message, "red")
 
     Info(message)
 }
@@ -54,28 +55,29 @@ func Info(input ...string) {
         return
     }
 
-    message = color.ColorMatchTemplate(message)
+    message = color.Template(message)
     fmt.Println(message)
 }
 
-// InfoF uses fmt.Sprintf to log a templated message.
-func InfoF(format string, input ...any) {
+// Infof uses fmt.Sprintf to log a templated message.
+func Infof(format string, input ...any) {
     message := fmt.Sprintf(format, input...)
     if len(message) == 0 {
         return
     }
 
-    message = color.ColorMatchTemplate(message)
+    message = color.Template(message)
     fmt.Println(message)
 }
 
-func InfoL(inputLines ...string) {
+// Infol logs a templated message with a newline.
+func Infol(inputLines ...string) {
     message := strings.Join(inputLines, "\n")
     if len(message) == 0 {
         return
     }
 
-    message = color.ColorMatchTemplate(message)
+    message = color.Template(message)
     fmt.Println(message)
 }
 
@@ -83,14 +85,14 @@ func Underline(title string, message string) {
     if message != "" {
         title = fmt.Sprintf("{{ %s | bold }} {{ %s | blue }}", title, message)
     }
-    title = color.ColorMatchTemplate(title)
+    title = color.Template(title)
 
     underline := color.RemoveColor(title)
     underline = strings.Repeat("-", len(underline))
-    underline = color.ColorString(underline, "grey")
+    underline = color.String(underline, "grey")
 
     fmt.Println()
-    InfoL(title, underline)
+    Infol(title, underline)
 }
 
 func UnderlineF(format string, input ...any) {
