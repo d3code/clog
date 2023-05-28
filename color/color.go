@@ -28,7 +28,21 @@ func Template(message string) string {
     return message
 }
 
+func RemoveTemplate(message string) string {
+    re := regexp.MustCompile(`[{]{2}([^{|}]*)\|+([^{|}]*)[}]{2}`)
+    matches := re.FindAllStringSubmatch(message, -1)
+
+    for _, match := range matches {
+        text := strings.TrimSpace(match[1])
+        message = strings.ReplaceAll(message, match[0], text)
+    }
+
+    return message
+}
+
 func RemoveColor(message string) string {
+    message = Template(message)
+
     re := regexp.MustCompile(`(\033\[\d+m)`)
     matches := re.FindAllStringSubmatch(message, -1)
 

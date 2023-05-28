@@ -19,10 +19,16 @@ func Debug(input ...string) {
         return
     }
 
+    message = color.RemoveTemplate(message)
     message = color.RemoveColor(message)
     message = color.String(message, "grey")
 
     Info(message)
+}
+
+func DebugF(format string, input ...any) {
+    message := fmt.Sprintf(format, input...)
+    Debug(message)
 }
 
 func Warn(input ...string) {
@@ -31,10 +37,16 @@ func Warn(input ...string) {
         message = "Unknown warning"
     }
 
+    message = color.RemoveTemplate(message)
     message = color.RemoveColor(message)
     message = color.String("[ warning ] "+message, "yellow")
 
     Info(message)
+}
+
+func WarnF(format string, input ...any) {
+    message := fmt.Sprintf(format, input...)
+    Warn(message)
 }
 
 func Error(input ...string) {
@@ -43,10 +55,16 @@ func Error(input ...string) {
         message = "Unknown error"
     }
 
+    message = color.RemoveTemplate(message)
     message = color.RemoveColor(message)
     message = color.String("[ error ] "+message, "red")
 
     Info(message)
+}
+
+func ErrorF(format string, input ...any) {
+    message := fmt.Sprintf(format, input...)
+    Error(message)
 }
 
 func Info(input ...string) {
@@ -59,26 +77,16 @@ func Info(input ...string) {
     fmt.Println(message)
 }
 
-// Infof uses fmt.Sprintf to log a templated message.
-func Infof(format string, input ...any) {
+// InfoF uses fmt.Sprintf to log a templated message.
+func InfoF(format string, input ...any) {
     message := fmt.Sprintf(format, input...)
-    if len(message) == 0 {
-        return
-    }
-
-    message = color.Template(message)
-    fmt.Println(message)
+    Info(message)
 }
 
-// Infol logs a templated message with a newline.
-func Infol(inputLines ...string) {
+// InfoL logs a templated message with a newline.
+func InfoL(inputLines ...string) {
     message := strings.Join(inputLines, "\n")
-    if len(message) == 0 {
-        return
-    }
-
-    message = color.Template(message)
-    fmt.Println(message)
+    Info(message)
 }
 
 func Underline(title string, message string) {
@@ -92,7 +100,7 @@ func Underline(title string, message string) {
     underline = color.String(underline, "grey")
 
     fmt.Println()
-    Infol(title, underline)
+    InfoL(title, underline)
 }
 
 func UnderlineF(format string, input ...any) {
