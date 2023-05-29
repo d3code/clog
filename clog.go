@@ -89,6 +89,7 @@ func InfoL(inputLines ...string) {
     Info(message)
 }
 
+// Underline logs a templated message with an underline.
 func Underline(title string, message string) {
     if message != "" {
         title = fmt.Sprintf("{{ %s | bold }} {{ %s | blue }}", title, message)
