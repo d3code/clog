@@ -77,8 +77,8 @@ func Info(input ...string) {
     fmt.Println(message)
 }
 
-// InfoF uses fmt.Sprintf to log a templated message.
-func InfoF(format string, input ...any) {
+// Infof uses fmt.Sprintf to log a templated message.
+func Infof(format string, input ...any) {
     message := fmt.Sprintf(format, input...)
     Info(message)
 }
