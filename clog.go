@@ -26,7 +26,7 @@ func Debug(input ...string) {
     Info(message)
 }
 
-func DebugF(format string, input ...any) {
+func Debugf(format string, input ...any) {
     message := fmt.Sprintf(format, input...)
     Debug(message)
 }
@@ -39,12 +39,12 @@ func Warn(input ...string) {
 
     message = color.RemoveTemplate(message)
     message = color.RemoveColor(message)
-    message = color.String("[ warning ] "+message, "yellow")
+    message = color.String(message, "yellow")
 
     Info(message)
 }
 
-func WarnF(format string, input ...any) {
+func Warnf(format string, input ...any) {
     message := fmt.Sprintf(format, input...)
     Warn(message)
 }
@@ -57,12 +57,12 @@ func Error(input ...string) {
 
     message = color.RemoveTemplate(message)
     message = color.RemoveColor(message)
-    message = color.String("[ error ] "+message, "red")
+    message = color.String(message, "red")
 
     Info(message)
 }
 
-func ErrorF(format string, input ...any) {
+func Errorf(format string, input ...any) {
     message := fmt.Sprintf(format, input...)
     Error(message)
 }
@@ -83,8 +83,8 @@ func Infof(format string, input ...any) {
     Info(message)
 }
 
-// InfoL logs a templated message with a newline.
-func InfoL(inputLines ...string) {
+// Infol logs a templated message with a newline.
+func Infol(inputLines ...string) {
     message := strings.Join(inputLines, "\n")
     Info(message)
 }
@@ -101,7 +101,7 @@ func Underline(title string, message string) {
     underline = color.String(underline, "grey")
 
     fmt.Println()
-    InfoL(title, underline)
+    Infol(title, underline)
 }
 
 func UnderlineF(format string, input ...any) {
